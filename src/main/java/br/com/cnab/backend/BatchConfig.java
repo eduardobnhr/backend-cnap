@@ -56,20 +56,20 @@ public class BatchConfig {
     @Bean
     FlatFileItemReader<TransacaoCNAB> reader(){
         return new FlatFileItemReaderBuilder<TransacaoCNAB>()
-        .name("reader")
-        .resource(new FileSystemResource("C:/Users/laraujo/Documents/backend/files/transacaoCNAB.txt"))
-        .fixedLength()
-        .columns(
-            new Range(1, 1), new Range(2, 9),
-            new Range(10, 19), new Range(20, 30),
-            new Range(31, 42), new Range(43, 48),
-            new Range(49, 62), new Range(63, 80)
-        )
-        .names("tipo", "data", "valor", "cpf",
-        "cartao", "hora", "donoDaLoja", "nomeDaLoja"
-        )
-        .targetType(TransacaoCNAB.class)
-        .build();
+            .name("reader")
+            .resource(new FileSystemResource("C:/Users/laraujo/Documents/backend/files/CNAB.txt"))  // Adicionada barra invertida
+            .fixedLength()
+            .columns(
+                new Range(1, 1), new Range(2, 9),
+                new Range(10, 19), new Range(20, 30),
+                new Range(31, 42), new Range(43, 48),
+                new Range(49, 62), new Range(63, 80)
+            )
+            .names("tipo", "data", "valor", "cpf",
+            "cartao", "hora", "donoDaLoja", "nomeDaLoja"
+            )
+            .targetType(TransacaoCNAB.class)
+            .build();
     }
 
 

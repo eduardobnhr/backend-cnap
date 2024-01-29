@@ -1,4 +1,4 @@
-package br.com.cnab.backend;
+package br.com.cnab.backend.job;
 
 import java.math.BigDecimal;
 
@@ -22,6 +22,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import br.com.cnab.backend.domain.Transacao;
+import br.com.cnab.backend.domain.TransacaoCNAB;
 
 @Configuration
 public class BatchConfig {
@@ -77,11 +80,10 @@ public class BatchConfig {
     ItemProcessor<TransacaoCNAB, Transacao> processor(){
         return item -> {
             var transacao = new Transacao(
-                null, item.tipo(), null, null, item.cpf(),
+                null, item.tipo(), null, 
+                item.valor().divide(BigDecimal.valueOf(100)), item.cpf(),
                 item.cartao(), null, item.donoDaLoja().trim(),
                 item.nomeDaLoja().trim())
-                .withValor(
-                    item.valor().divide(BigDecimal.valueOf(100)))
                 .withData(item.data())
                 .withHora(item.hora());
             return transacao;
